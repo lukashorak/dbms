@@ -1,0 +1,11 @@
+KNOWN ISSUES
+1. Orderd fields the same way as in query
+
+	- mix fields and aggregation
+	- mix different tables together
+	
+2. Aggregation functions doesn't use the name of field
+	- Make special Object for Field with type
+
+TODO
+1. HAVING - aggregate condition
