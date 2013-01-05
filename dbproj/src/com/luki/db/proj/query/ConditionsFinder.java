@@ -18,6 +18,7 @@ public class ConditionsFinder {
 		Pattern p = Pattern.compile("(AND|OR)");
 		Matcher m = p.matcher(conditions);
 		m.find();
+		Pattern pAgg = Pattern.compile("(max|min|count|sum|avg)\\[([\\w]*)\\]");
 
 		for (int i = 0; i < cArray.length; i++) {
 			String c = cArray[i];
@@ -36,9 +37,35 @@ public class ConditionsFinder {
 					sc.field1 = new Field(f[0].trim().replace("'", ""));
 					sc.field2 = new Field(f[1].trim().replace("'", ""));
 
+					Matcher m2 = pAgg.matcher(f[0].trim().replace("'", ""));
+					if (m2.find()) {
+						if (m2.group(1) != null && m2.group(2) != null) {
+							sc.field1.name = m2.group(1);
+							sc.field1.aggField = m2.group(2);
+							sc.field1.type = "AGG";
+						}
+					}
+
+					m2 = pAgg.matcher(f[1].trim().replace("'", ""));
+					if (m2.find()) {
+						if (m2.group(1) != null && m2.group(2) != null) {
+							sc.field2.name = m2.group(1);
+							sc.field2.aggField = m2.group(2);
+							sc.field2.type = "AGG";
+						}
+					}
+
 					sc.field1Type = "V";
 					for (Field field : fields) {
 						if (field.equals(sc.field1)) {
+							sc.field1 = field;
+							sc.field1Type = "C";
+							break;
+						}
+						if ("AGG".equals(field.type)
+								&& sc.field1.aggField.equals(field.aggField)
+								&& sc.field1.name
+										.compareToIgnoreCase(field.name) == 0) {
 							sc.field1 = field;
 							sc.field1Type = "C";
 							break;
@@ -72,6 +99,7 @@ public class ConditionsFinder {
 		return simpleConditions;
 	}
 
+	@Deprecated
 	public static ArrayList<HavingCondition> findHavingCondition(
 			String conditions, ArrayList<String> fields) {
 		ArrayList<HavingCondition> havingConditions = new ArrayList<HavingCondition>();

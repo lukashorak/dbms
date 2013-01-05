@@ -67,9 +67,9 @@ public class QueryExecutor {
 
 			// TODO - More GroupBy fields
 			Field f = sq.groupByFields.get(0);
-			
+
 			// Filter result
-						rows = this.filter(rows);
+			rows = this.filter(rows);
 			// for (String f : sq.groupByFields) {
 
 			for (Row r : rows) {
@@ -95,6 +95,10 @@ public class QueryExecutor {
 					Row agg = this.aggregateResult(shrinkGroup);
 					// rows = this.aggregationJoin(rows, agg);
 					shrinkGroup = this.aggregationShrink(shrinkGroup, agg);
+				} else {
+					// FIXME - what to do when there is no aggregation??
+					throw new QueryException(
+							"It's required to have aggregation function when using group by");
 				}
 
 				if (sq.havingSimpleConditions.size() > 0) {

@@ -103,10 +103,19 @@ public class Main {
 		// } catch (QueryException e) {
 		// e.printStackTrace();
 		// }
+		// System.out.println("----------------------------------------");
+		// try {
+		// search.search(
+		// db,
+		// "select id_product,category_id,price,min(price),max(price) from product GROUP BY category_id");
+		// } catch (QueryException e) {
+		// e.printStackTrace();
+		// }
 		System.out.println("----------------------------------------");
 		try {
-			search.search(db,
-					"select id_product,category_id,price from product GROUP BY id_product ");
+			search.search(
+					db,
+					"select id_product,category_id,price,min(price),max(price) from product GROUP BY category_id HAVING MAX[price] > 0 AND MAX[price] < 1600");
 		} catch (QueryException e) {
 			e.printStackTrace();
 		}
