@@ -1,0 +1,6 @@
+ID_PRODUCT,CATEGORY_ID,NAME,DESCRIPTION,PRICE,WEIGHT
+1,1,Name1,ProductDescription1,20,1.4
+2,1,Name2,ProductDescription2,30,2.4
+3,2,Name3,ProductDescription3,50,0.6
+4,2,Name4,ProductDescription4,100,12.5
+5,3,Name5,ProductDescription5,1500,1.9

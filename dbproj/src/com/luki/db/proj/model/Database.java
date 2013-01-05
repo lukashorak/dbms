@@ -9,9 +9,18 @@ import au.com.bytecode.opencsv.CSVReader;
 public class Database {
 
 	public ArrayList<Table> tables = new ArrayList<Table>();
-	String storageLocation = "data";
+	String storageLocation = "data2";
 
 	public Database() {
+		try {
+			this.loadTablesFromFiles();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public Database(String storageLocation) {
+		this.storageLocation = storageLocation;
 		try {
 			this.loadTablesFromFiles();
 		} catch (Exception e) {
@@ -50,7 +59,7 @@ public class Database {
 		if (nextLine != null) {
 			for (int i = 0; i < nextLine.length; i++) {
 				String s = nextLine[i];
-				t.header.add(s);
+				t.header.add(s.toLowerCase());
 			}
 		}
 		// Read Content
