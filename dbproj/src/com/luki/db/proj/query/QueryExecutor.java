@@ -382,29 +382,61 @@ public class QueryExecutor {
 			}
 			boolean toRemove = false;
 
-			if (sc.type.equals("=")) {
-				if (v1.compareTo(v2) != 0) {
-					toRemove = true;
+			try {
+				Double v1D = new Double(v1);
+				Double v2D = new Double(v2);
+
+				if (sc.type.equals("=")) {
+					if (v1D.compareTo(v2D) != 0) {
+						toRemove = true;
+					}
+				} else if (sc.type.equals("!=")) {
+					if (v1D.compareTo(v2D) == 0) {
+						toRemove = true;
+					}
+				} else if (sc.type.equals(">")) {
+					if (v1D.compareTo(v2D) <= 0) {
+						toRemove = true;
+					}
+				} else if (sc.type.equals("<")) {
+					if (v1D.compareTo(v2D) >= 0) {
+						toRemove = true;
+					}
+				} else if (sc.type.equals("<=")) {
+					if (v1D.compareTo(v2D) > 0) {
+						toRemove = true;
+					}
+				} else if (sc.type.equals(">=")) {
+					if (v1D.compareTo(v2D) < 0) {
+						toRemove = true;
+					}
 				}
-			} else if (sc.type.equals("!=")) {
-				if (v1.compareTo(v2) == 0) {
-					toRemove = true;
-				}
-			} else if (sc.type.equals(">")) {
-				if (v1.compareTo(v2) <= 0) {
-					toRemove = true;
-				}
-			} else if (sc.type.equals("<")) {
-				if (v1.compareTo(v2) >= 0) {
-					toRemove = true;
-				}
-			} else if (sc.type.equals("<=")) {
-				if (v1.compareTo(v2) > 0) {
-					toRemove = true;
-				}
-			} else if (sc.type.equals(">=")) {
-				if (v1.compareTo(v2) < 0) {
-					toRemove = true;
+			} catch (Exception e) {
+
+				if (sc.type.equals("=")) {
+					if (v1.compareTo(v2) != 0) {
+						toRemove = true;
+					}
+				} else if (sc.type.equals("!=")) {
+					if (v1.compareTo(v2) == 0) {
+						toRemove = true;
+					}
+				} else if (sc.type.equals(">")) {
+					if (v1.compareTo(v2) <= 0) {
+						toRemove = true;
+					}
+				} else if (sc.type.equals("<")) {
+					if (v1.compareTo(v2) >= 0) {
+						toRemove = true;
+					}
+				} else if (sc.type.equals("<=")) {
+					if (v1.compareTo(v2) > 0) {
+						toRemove = true;
+					}
+				} else if (sc.type.equals(">=")) {
+					if (v1.compareTo(v2) < 0) {
+						toRemove = true;
+					}
 				}
 			}
 
@@ -445,55 +477,112 @@ public class QueryExecutor {
 
 			boolean toRemove = false;
 
-			if (sc.type.equals("=")) {
-				if (v1.compareTo(v2) != 0) {
-					toRemove = true;
-				}
-			} else if (sc.type.equals("!=")) {
-				if (v1.compareTo(v2) == 0) {
-					toRemove = true;
-				}
-			} else if (sc.type.equals(">")) {
-				if (v1.compareTo(v2) <= 0) {
-					toRemove = true;
-				}
-			} else if (sc.type.equals("<")) {
-				if (v1.compareTo(v2) >= 0) {
-					toRemove = true;
-				}
-			} else if (sc.type.equals("<=")) {
-				if (v1.compareTo(v2) > 0) {
-					toRemove = true;
-				}
-			} else if (sc.type.equals(">=")) {
-				if (v1.compareTo(v2) < 0) {
-					toRemove = true;
-				}
-			} else if (sc.type.equals("IN")) {
+			try {
+				Double v1D = new Double(v1);
+				Double v2D = new Double(v2);
 
-				if ("IN".equals(sc.type)) {
-					String[] values2 = v2.replaceAll("([\\[\\]]*)", "").split(
-							",");
-					boolean isIn = false;
-					for (String val2 : values2) {
-						if (v1.compareTo(val2) == 0) {
-							isIn = true;
-						}
+				if (sc.type.equals("=")) {
+					if (v1D.compareTo(v2D) != 0) {
+						toRemove = true;
 					}
-					toRemove = !isIn;
-				}
-			} else if (sc.type.equals("NOT IN")) {
+				} else if (sc.type.equals("!=")) {
+					if (v1D.compareTo(v2D) == 0) {
+						toRemove = true;
+					}
+				} else if (sc.type.equals(">")) {
+					if (v1D.compareTo(v2D) <= 0) {
+						toRemove = true;
+					}
+				} else if (sc.type.equals("<")) {
+					if (v1D.compareTo(v2D) >= 0) {
+						toRemove = true;
+					}
+				} else if (sc.type.equals("<=")) {
+					if (v1D.compareTo(v2D) > 0) {
+						toRemove = true;
+					}
+				} else if (sc.type.equals(">=")) {
+					if (v1D.compareTo(v2D) < 0) {
+						toRemove = true;
+					}
+				} else if (sc.type.equals("IN")) {
 
-				if ("NOT IN".equals(sc.type)) {
-					String[] values2 = v2.replaceAll("([\\[\\]]*)", "").split(
-							",");
-					boolean isNotIn = true;
-					for (String val2 : values2) {
-						if (v1.compareTo(val2) == 0) {
-							isNotIn = false;
+					if ("IN".equals(sc.type)) {
+						String[] values2 = v2.replaceAll("([\\[\\]]*)", "")
+								.split(",");
+						boolean isIn = false;
+						for (String val2 : values2) {
+							if (v1.compareTo(val2) == 0) {
+								isIn = true;
+							}
 						}
+						toRemove = !isIn;
 					}
-					toRemove = !isNotIn;
+				} else if (sc.type.equals("NOT IN")) {
+
+					if ("NOT IN".equals(sc.type)) {
+						String[] values2 = v2.replaceAll("([\\[\\]]*)", "")
+								.split(",");
+						boolean isNotIn = true;
+						for (String val2 : values2) {
+							if (v1.compareTo(val2) == 0) {
+								isNotIn = false;
+							}
+						}
+						toRemove = !isNotIn;
+					}
+				}
+			} catch (Exception e) {
+				if (sc.type.equals("=")) {
+					if (v1.compareTo(v2) != 0) {
+						toRemove = true;
+					}
+				} else if (sc.type.equals("!=")) {
+					if (v1.compareTo(v2) == 0) {
+						toRemove = true;
+					}
+				} else if (sc.type.equals(">")) {
+					if (v1.compareTo(v2) <= 0) {
+						toRemove = true;
+					}
+				} else if (sc.type.equals("<")) {
+					if (v1.compareTo(v2) >= 0) {
+						toRemove = true;
+					}
+				} else if (sc.type.equals("<=")) {
+					if (v1.compareTo(v2) > 0) {
+						toRemove = true;
+					}
+				} else if (sc.type.equals(">=")) {
+					if (v1.compareTo(v2) < 0) {
+						toRemove = true;
+					}
+				} else if (sc.type.equals("IN")) {
+
+					if ("IN".equals(sc.type)) {
+						String[] values2 = v2.replaceAll("([\\[\\]]*)", "")
+								.split(",");
+						boolean isIn = false;
+						for (String val2 : values2) {
+							if (v1.compareTo(val2) == 0) {
+								isIn = true;
+							}
+						}
+						toRemove = !isIn;
+					}
+				} else if (sc.type.equals("NOT IN")) {
+
+					if ("NOT IN".equals(sc.type)) {
+						String[] values2 = v2.replaceAll("([\\[\\]]*)", "")
+								.split(",");
+						boolean isNotIn = true;
+						for (String val2 : values2) {
+							if (v1.compareTo(val2) == 0) {
+								isNotIn = false;
+							}
+						}
+						toRemove = !isNotIn;
+					}
 				}
 			}
 
