@@ -17,42 +17,52 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 
 		Main m = new Main();
+		m.initData();
 		m.start3();
 		m.scanStdin();
 
+	}
+
+	public void initData() {
+		this.db = new Database("data2");
+		this.search = new Search();
 	}
 
 	public void start3() {
 		this.db = new Database("data2");
 		this.search = new Search();
 
-		System.out.println("----------------------------------------");
+		// System.out.println("----------------------------------------");
 		// try {
+		// this.initData();
 		// search.search(db, "select * from category;");
 		// } catch (QueryException e) {
 		// e.printStackTrace();
 		// }
-		// System.out.println("----------------------------------------");
+		System.out.println("----------------------------------------");
+		try {
+			this.initData();
+			search.search(db, "select id_category from category;");
+		} catch (QueryException e) {
+			e.printStackTrace();
+		}
+		System.out.println("----------------------------------------");
 		// try {
-		// search.search(db, "select ID_CATEGORY from category;");
-		// } catch (QueryException e) {
-		// e.printStackTrace();
-		// }
-		// System.out.println("----------------------------------------");
-		// try {
+		// this.initData();
 		// search.search(
 		// db,
 		// "select min(ID_CATEGORY),max(ID_CATEGORY),sum(ID_CATEGORY),avg(ID_CATEGORY),count(ID_CATEGORY) from category;");
 		// } catch (QueryException e) {
 		// e.printStackTrace();
 		// }
-		// System.out.println("----------------------------------------");
-		// try {
-		// search.search(db, "select * from category where id_category=2;");
-		// } catch (QueryException e) {
-		// e.printStackTrace();
-		// }
-		// System.out.println("----------------------------------------");
+		System.out.println("----------------------------------------");
+		try {
+			this.initData();
+			search.search(db, "select * from category where id_category=2;");
+		} catch (QueryException e) {
+			e.printStackTrace();
+		}
+		System.out.println("----------------------------------------");
 		// try {
 		// search.search(db, "select * from category where id_category>2;");
 		// } catch (QueryException e) {
@@ -120,7 +130,15 @@ public class Main {
 		// } catch (QueryException e) {
 		// e.printStackTrace();
 		// }
-		// System.out.println("----------------------------------------");
+		System.out.println("----------------------------------------");
+		try {
+			search.search(
+					db,
+					"select id_product,category_id,price from product where category_id in (select id_category from category where id_category >1)");
+		} catch (QueryException e) {
+			e.printStackTrace();
+		}
+		System.out.println("----------------------------------------");
 	}
 
 	public void start2() {
@@ -313,6 +331,7 @@ public class Main {
 				Long startTime = new Date().getTime();
 
 				try {
+					this.initData();
 					search.search(this.db, sQuery);
 				} catch (QueryException e) {
 					e.printStackTrace();

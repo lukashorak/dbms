@@ -42,7 +42,6 @@ public class Field implements Comparable<Field> {
 		return true;
 	}
 
-	@Override
 	public int compareTo(Field arg0) {
 		return this.pos.compareTo(arg0.pos);
 	}

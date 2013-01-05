@@ -30,13 +30,13 @@ public class Database {
 
 	private void loadTablesFromFiles() {
 
-		System.out.println("Read files");
+		// System.out.println("Read files");
 
 		File f = new File(storageLocation);
 		String[] list = f.list();
 
 		for (String s : list) {
-			System.out.println("\t" + s);
+			// System.out.println("\t" + s);
 			try {
 				Table t = this.loadTable(s);
 				this.tables.add(t);
