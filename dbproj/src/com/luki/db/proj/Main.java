@@ -18,6 +18,7 @@ public class Main {
 
 		Main m = new Main();
 		m.start3();
+		m.scanStdin();
 
 	}
 
@@ -111,15 +112,15 @@ public class Main {
 		// } catch (QueryException e) {
 		// e.printStackTrace();
 		// }
-		System.out.println("----------------------------------------");
-		try {
-			search.search(
-					db,
-					"select id_product,category_id,price,min(price),max(price) from product GROUP BY category_id HAVING MAX[price] > 0 AND MAX[price] < 1600");
-		} catch (QueryException e) {
-			e.printStackTrace();
-		}
-		System.out.println("----------------------------------------");
+		// System.out.println("----------------------------------------");
+		// try {
+		// search.search(
+		// db,
+		// "select id_product,category_id,price,min(price),max(price) from product GROUP BY category_id HAVING MAX[price] > 0 AND MAX[price] < 1600");
+		// } catch (QueryException e) {
+		// e.printStackTrace();
+		// }
+		// System.out.println("----------------------------------------");
 	}
 
 	public void start2() {

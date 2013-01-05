@@ -1,7 +1,6 @@
 package com.luki.db.proj;
 
 import com.luki.db.proj.model.Database;
-import com.luki.db.proj.model.Field;
 import com.luki.db.proj.model.Table;
 import com.luki.db.proj.query.QueryException;
 import com.luki.db.proj.query.QueryExecutor;
@@ -29,6 +28,7 @@ public class Search {
 			return;
 		}
 		if (normalizedQuery.startsWith("DESC ")) {
+			normalizedQuery = normalizedQuery.replace(";", "");
 			String[] params = normalizedQuery.split("(\\s+)");
 			this.descTable(params[1]);
 			return;
