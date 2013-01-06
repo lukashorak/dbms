@@ -17,8 +17,9 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 
 		Main m = new Main();
-		m.initData();
-		m.start3();
+		if (args.length > 0 && "demo".equals(args[0])){
+			m.start3();
+		}
 		m.scanStdin();
 
 	}
@@ -32,13 +33,13 @@ public class Main {
 		this.db = new Database("data2");
 		this.search = new Search();
 
-		// System.out.println("----------------------------------------");
-		// try {
-		// this.initData();
-		// search.search(db, "select * from category;");
-		// } catch (QueryException e) {
-		// e.printStackTrace();
-		// }
+		System.out.println("----------------------------------------");
+		try {
+			this.initData();
+			search.search(db, "select * from category;");
+		} catch (QueryException e) {
+			e.printStackTrace();
+		}
 		System.out.println("----------------------------------------");
 		try {
 			this.initData();
@@ -47,14 +48,14 @@ public class Main {
 			e.printStackTrace();
 		}
 		System.out.println("----------------------------------------");
-		// try {
-		// this.initData();
-		// search.search(
-		// db,
-		// "select min(ID_CATEGORY),max(ID_CATEGORY),sum(ID_CATEGORY),avg(ID_CATEGORY),count(ID_CATEGORY) from category;");
-		// } catch (QueryException e) {
-		// e.printStackTrace();
-		// }
+		try {
+			this.initData();
+			search.search(
+					db,
+					"select min(ID_CATEGORY),max(ID_CATEGORY),sum(ID_CATEGORY),avg(ID_CATEGORY),count(ID_CATEGORY) from category;");
+		} catch (QueryException e) {
+			e.printStackTrace();
+		}
 		System.out.println("----------------------------------------");
 		try {
 			this.initData();
@@ -63,78 +64,89 @@ public class Main {
 			e.printStackTrace();
 		}
 		System.out.println("----------------------------------------");
-		// try {
-		// search.search(db, "select * from category where id_category>2;");
-		// } catch (QueryException e) {
-		// e.printStackTrace();
-		// }
-		// System.out.println("----------------------------------------");
-		// try {
-		// search.search(db, "select * from category where id_category>=2;");
-		// } catch (QueryException e) {
-		// e.printStackTrace();
-		// }
-		// System.out.println("----------------------------------------");
-		// try {
-		// search.search(db, "select * from category where id_category!=2;");
-		// } catch (QueryException e) {
-		// e.printStackTrace();
-		// }
-		// System.out.println("----------------------------------------");
-		// try {
-		// search.search(db,
-		// "select * from category where id_category!=2 and id_category!=1;");
-		// } catch (QueryException e) {
-		// e.printStackTrace();
-		// }
-		// System.out.println("----------------------------------------");
-		// try {
-		// search.search(db,
-		// "select * from category where id_category=1 or id_category=2;");
-		// } catch (QueryException e) {
-		// e.printStackTrace();
-		// }
-		// System.out.println("----------------------------------------");
-		// try {
-		// search.search(db,
-		// "select * from category where id_category not in [1,2];");
-		// } catch (QueryException e) {
-		// e.printStackTrace();
-		// }
-		// System.out.println("----------------------------------------");
-		// try {
-		// search.search(db, "select * from category, product");
-		// } catch (QueryException e) {
-		// e.printStackTrace();
-		// }
-		// System.out.println("----------------------------------------");
-		// try {
-		// search.search(db,
-		// "select * from category, product where id_category=category_id");
-		// } catch (QueryException e) {
-		// e.printStackTrace();
-		// }
-		// System.out.println("----------------------------------------");
-		// try {
-		// search.search(
-		// db,
-		// "select id_product,category_id,price,min(price),max(price) from product GROUP BY category_id");
-		// } catch (QueryException e) {
-		// e.printStackTrace();
-		// }
-		// System.out.println("----------------------------------------");
-		// try {
-		// search.search(
-		// db,
-		// "select id_product,category_id,price,min(price),max(price) from product GROUP BY category_id HAVING MAX[price] > 0 AND MAX[price] < 1600");
-		// } catch (QueryException e) {
-		// e.printStackTrace();
-		// }
+		try {
+			this.initData();
+			search.search(db, "select * from category where id_category>2;");
+		} catch (QueryException e) {
+			e.printStackTrace();
+		}
 		System.out.println("----------------------------------------");
 		try {
+			this.initData();
+			search.search(db, "select * from category where id_category>=2;");
+		} catch (QueryException e) {
+			e.printStackTrace();
+		}
+		System.out.println("----------------------------------------");
+		try {
+			this.initData();
+			search.search(db, "select * from category where id_category!=2;");
+		} catch (QueryException e) {
+			e.printStackTrace();
+		}
+		System.out.println("----------------------------------------");
+		try {
+			this.initData();
+			search.search(db,
+					"select * from category where id_category!=2 and id_category!=1;");
+		} catch (QueryException e) {
+			e.printStackTrace();
+		}
+		System.out.println("----------------------------------------");
+		try {
+			this.initData();
+			search.search(db,
+					"select * from category where id_category=1 or id_category=2;");
+		} catch (QueryException e) {
+			e.printStackTrace();
+		}
+		System.out.println("----------------------------------------");
+		try {
+			this.initData();
+			search.search(db,
+					"select * from category where id_category not in [1,2];");
+		} catch (QueryException e) {
+			e.printStackTrace();
+		}
+		System.out.println("----------------------------------------");
+		try {
+			this.initData();
+			search.search(db, "select * from category, product;");
+		} catch (QueryException e) {
+			e.printStackTrace();
+		}
+		System.out.println("----------------------------------------");
+		try {
+			this.initData();
+			search.search(db,
+					"select * from category, product where id_category=category_id;");
+		} catch (QueryException e) {
+			e.printStackTrace();
+		}
+		System.out.println("----------------------------------------");
+		try {
+			this.initData();
 			search.search(
 					db,
-					"select id_product,category_id,price from product where category_id in (select id_category from category where id_category >1)");
+					"select id_product,category_id,price,min(price),max(price) from product GROUP BY category_id;");
+		} catch (QueryException e) {
+			e.printStackTrace();
+		}
+		System.out.println("----------------------------------------");
+		try {
+			this.initData();
+			search.search(
+					db,
+					"select id_product,category_id,price,min(price),max(price) from product GROUP BY category_id HAVING MAX[price] > 0 AND MAX[price] < 1600;");
+		} catch (QueryException e) {
+			e.printStackTrace();
+		}
+		System.out.println("----------------------------------------");
+		try {
+			this.initData();
+			search.search(
+					db,
+					"select id_product,category_id,price from product where category_id in (select id_category from category where id_category >1);");
 		} catch (QueryException e) {
 			e.printStackTrace();
 		}
